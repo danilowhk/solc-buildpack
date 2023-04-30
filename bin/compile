@@ -1,12 +1,12 @@
 #!/bin/sh
-echo "Solc Build started"
+
+echo "-----> Solc Build started"
 
 BUILD_DIR="$1"
 CACHE_DIR="$2"
 
 # Add Ethereum PPA
-echo "deb http://ppa.launchpad.net/ethereum/ethereum/ubuntu bionic main" > /etc/apt/sources.list.d/ethereum-ubuntu-ethereum-bionic.list
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 2A518C819BE37D2C2031944D1C52189C923F6CA9
+add-apt-repository -y ppa:ethereum/ethereum
 apt-get update
 
 # Install solc
