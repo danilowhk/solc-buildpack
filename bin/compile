@@ -1,0 +1,18 @@
+#!/bin/sh
+
+BUILD_DIR="$1"
+CACHE_DIR="$2"
+
+# Download and install Foundryup
+curl -sSfL -o foundryup https://foundry.paradigm.xyz
+chmod +x foundryup
+
+# Install Foundry binaries (forge, cast, anvil, and chisel) using Foundryup
+./foundryup --yes
+
+# Move the installed binaries to the BUILD_DIR
+mkdir -p "$BUILD_DIR/.bin"
+mv forge cast anvil chisel "$BUILD_DIR/.bin"
+
+# Clean up
+rm foundryup
