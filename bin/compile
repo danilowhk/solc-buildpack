@@ -4,13 +4,23 @@ echo "-----> Solc Build started"
 
 BUILD_DIR="$1"
 CACHE_DIR="$2"
+VENDOR_DIR="$BUILD_DIR/vendor"
 
-# Add Ethereum PPA
-add-apt-repository -y ppa:ethereum/ethereum
-apt-get update
+# Create vendor directory if it doesn't exist
+mkdir -p "$VENDOR_DIR"
 
-# Install solc
-apt-get install -y solc
+# Set the solc version
+SOLC_VERSION="0.8.19"
+
+# Download solc binary
+echo "-----> Downloading solc binary"
+curl -L -o "$VENDOR_DIR/solc" "https://github.com/ethereum/solidity/releases/download/v${SOLC_VERSION}/solc-static-linux"
+
+# Make solc binary executable
+chmod +x "$VENDOR_DIR/solc"
+
+# Add solc binary to the PATH
+export PATH="$VENDOR_DIR:$PATH"
 
 # Check solc version
 solc --version
