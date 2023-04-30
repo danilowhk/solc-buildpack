@@ -1,18 +1,16 @@
 #!/bin/sh
+echo "Solc Build started"
 
 BUILD_DIR="$1"
 CACHE_DIR="$2"
 
-# Download and install Foundryup
-curl -sSfL -o foundryup https://foundry.paradigm.xyz
-chmod +x foundryup
+# Add Ethereum PPA
+echo "deb http://ppa.launchpad.net/ethereum/ethereum/ubuntu bionic main" > /etc/apt/sources.list.d/ethereum-ubuntu-ethereum-bionic.list
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 2A518C819BE37D2C2031944D1C52189C923F6CA9
+apt-get update
 
-# Install Foundry binaries (forge, cast, anvil, and chisel) using Foundryup
-./foundryup --yes
+# Install solc
+apt-get install -y solc
 
-# Move the installed binaries to the BUILD_DIR
-mkdir -p "$BUILD_DIR/.bin"
-mv forge cast anvil chisel "$BUILD_DIR/.bin"
-
-# Clean up
-rm foundryup
+# Check solc version
+solc --version

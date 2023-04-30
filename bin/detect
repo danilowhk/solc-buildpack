@@ -1,4 +1,4 @@
-!/bin/sh
+#!/bin/sh
 
-echo "Foundry buildpack"
+echo "Solc buildpack"
 exit 0
